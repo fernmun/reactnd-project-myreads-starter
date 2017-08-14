@@ -16,6 +16,16 @@ class BooksApp extends React.Component {
     })
   }
 
+  updateBookShelf(book, shelf) {
+    BooksAPI.update(book, shelf).then(
+      this.setState(state => {
+        books: state.books.map(item =>
+          item.shelf = item.id === book.id ? shelf : item.shelf
+        )
+      })
+    )
+  }
+
   render() {
     return (
       <div className="app">
@@ -25,6 +35,9 @@ class BooksApp extends React.Component {
       <Route exact path="/" render={() => (
           <ListBooks
             books={this.state.books}
+            onUpdateBookShelf={(book, shelf) => {
+              this.updateBookShelf(book, shelf)
+            }}
           />
         )} />
       </div>

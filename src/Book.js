@@ -1,7 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Book = ({book}) => {
+const Book = ({ book, onUpdateBookShelf }) => {
+  const handleChange = (e) => {
+    e.preventDefault()
+    onUpdateBookShelf(book, e.target.value)
+  }
+
   const renderBookCover = (path) => {
     return (
       <div
@@ -16,7 +21,7 @@ const Book = ({book}) => {
       <div className="book-top">
         {renderBookCover(book.imageLinks.thumbnail)}
         <div className="book-shelf-changer">
-          <select>
+          <select defaultValue={book.shelf} onChange={handleChange}>
             <option value="none" disabled>Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>

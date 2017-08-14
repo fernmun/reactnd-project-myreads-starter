@@ -3,22 +3,22 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Bookshelf from './Bookshelf'
 
-class ListBooks extends React.Component {
-  render() {
+const ListBooks = ({ books, onUpdateBookShelf }) => {
     const allBooks = [
       {
-        books: this.props.books.filter(book => book.shelf === 'currentlyReading'),
+        books: books.filter(book => book.shelf === 'currentlyReading'),
         title: 'Currently Reading'
       },
       {
-        books: this.props.books.filter(book => book.shelf === 'wantToRead'),
+        books: books.filter(book => book.shelf === 'wantToRead'),
         title: 'Want To Read'
       },
       {
-        books: this.props.books.filter(book => book.shelf === 'read'),
+        books: books.filter(book => book.shelf === 'read'),
         title: 'Read'
       }
     ]
+
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -27,7 +27,12 @@ class ListBooks extends React.Component {
         <div className="list-books-content">
           <div>
             {allBooks.map((group, index) => (
-                <Bookshelf key={index} title={group.title} books={group.books} />
+                <Bookshelf
+                  key={index}
+                  title={group.title}
+                  books={group.books}
+                  onUpdateBookShelf={onUpdateBookShelf}
+                />
             ))}
           </div>
         </div>
@@ -36,11 +41,11 @@ class ListBooks extends React.Component {
         </div>
       </div>
     )
-  }
 }
 
 ListBooks.PropTypes = {
-  books: PropTypes.array.isRequired
+  books: PropTypes.array.isRequired,
+  onUpdateBookShelf: PropTypes.func
 }
 
 export default ListBooks
