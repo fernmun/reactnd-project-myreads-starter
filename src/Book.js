@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 const Book = ({ book, onUpdateBookShelf }) => {
   const handleChange = (e) => {
-    e.preventDefault()
     onUpdateBookShelf(book, e.target.value)
   }
 
@@ -19,9 +18,9 @@ const Book = ({ book, onUpdateBookShelf }) => {
   return (
     <div className="book">
       <div className="book-top">
-        {renderBookCover(book.imageLinks.thumbnail)}
+        {book.imageLinks && renderBookCover(book.imageLinks.thumbnail)}
         <div className="book-shelf-changer">
-          <select defaultValue={book.shelf} onChange={handleChange}>
+          <select defaultValue={book.shelf || 'none'} onChange={handleChange}>
             <option value="none" disabled>Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>
@@ -31,7 +30,7 @@ const Book = ({ book, onUpdateBookShelf }) => {
         </div>
       </div>
       <div className="book-title">{book.title}</div>
-      {book.authors.map((author, index) => (
+      {book.authors && book.authors.map((author, index) => (
         <div key={index} className="book-authors">{author}</div>
       ))}
     </div>

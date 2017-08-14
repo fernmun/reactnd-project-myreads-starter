@@ -26,7 +26,7 @@ const ListBooks = ({ books, onUpdateBookShelf }) => {
         </div>
         <div className="list-books-content">
           <div>
-            {allBooks.map((group, index) => (
+            {allBooks && allBooks.map((group, index) => (
                 <Bookshelf
                   key={index}
                   title={group.title}
