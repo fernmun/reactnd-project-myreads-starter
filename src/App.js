@@ -53,23 +53,12 @@ class BooksApp extends React.Component {
    * @param  {string} shelf Book shelf
    */
   updateBookShelf(book, shelf) {
-    BooksAPI.update(book, shelf).then(
-      this.setState(state => {
-        // Check if book updated is listed on the main page, if not get all books.
-        if (state.books.filter(bookItem => bookItem.id === book.id).length) {
-          state.books.map(item =>
-            item.shelf = item.id === book.id ? shelf : item.shelf
-          )
-        }
-        else {
-          BooksAPI.getAll().then((books) => {
-            if (books && books.length) {
-              state.books = books
-            }
-          })
-        }
-      })
-    )
+    BooksAPI.update(book, shelf).then(() => {
+      book.shelf = shelf
+      this.setState(previousState => ({
+        books: previousState.books.filter(b => b.id !== book.id).concat([book])
+      }))
+    })
   }
 
   /**
@@ -82,6 +71,8 @@ class BooksApp extends React.Component {
       BooksAPI.search(query).then(foundBooks => {
         if (foundBooks && foundBooks.length) {
           this.setState({ foundBooks })
+        } else {
+          this.setState({ foundBooks: [] })
         }
       })
     } else {
