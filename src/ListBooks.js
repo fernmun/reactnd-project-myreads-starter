@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import ShortID from 'shortid'
 import Bookshelf from './Bookshelf'
 
 /**
@@ -41,7 +42,7 @@ const ListBooks = ({ books, onUpdateBookShelf }) => {
           <div>
             {allBooks && allBooks.map((group, index) => (
                 <Bookshelf
-                  key={index}
+                  key={ShortID.generate()}
                   title={group.title}
                   books={group.books}
                   onUpdateBookShelf={onUpdateBookShelf}
