@@ -60,9 +60,9 @@ const ListBooks = ({ books, onUpdateBookShelf }) => {
  * Define property types
  * @type {Object}
  */
-ListBooks.PropTypes = {
-  books: PropTypes.array.isRequired,
-  onUpdateBookShelf: PropTypes.func
+ListBooks.propTypes = {
+  books: PropTypes.array,
+  onUpdateBookShelf: PropTypes.func.isRequired
 }
 
 export default ListBooks

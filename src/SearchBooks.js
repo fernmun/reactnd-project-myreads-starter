@@ -51,10 +51,10 @@ const SearchBooks = ({ books, onSearchBook, onUpdateBookShelf }) => {
  * Define property types
  * @type {Object}
  */
-SearchBooks.PropTypes = {
+SearchBooks.propTypes = {
   books: PropTypes.array,
-  onSearchBook: PropTypes.func,
-  onUpdateBookShelf: PropTypes.func,
+  onSearchBook: PropTypes.func.isRequired,
+  onUpdateBookShelf: PropTypes.func.isRequired,
 }
 
 export default SearchBooks

@@ -59,9 +59,9 @@ const Book = ({ book, onUpdateBookShelf }) => {
  * Define property types
  * @type {Object}
  */
-Book.PropTypes = {
+Book.propTypes = {
   book: PropTypes.object.isRequired,
-  onUpdateBookShelf: PropTypes.func
+  onUpdateBookShelf: PropTypes.func.isRequired
 }
 
 export default Book
