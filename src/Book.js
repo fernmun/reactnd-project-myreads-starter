@@ -1,11 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+/**
+ * @description Book stateless component
+ * @param {Object} book All book data
+ * @param {function} onUpdateBookShelf Update book shelf
+ */
 const Book = ({ book, onUpdateBookShelf }) => {
+  /**
+   * @description Trigger onUpdateBookShelf method
+   * @param {Object} e Event object
+   */
   const handleChange = (e) => {
     onUpdateBookShelf(book, e.target.value)
   }
 
+  /**
+   * @description Render book cover structure
+   * @param {string} path Image path
+   * @returns {JSX} Book cover structure
+   */
   const renderBookCover = (path) => {
     return (
       <div
@@ -15,6 +29,10 @@ const Book = ({ book, onUpdateBookShelf }) => {
     )
   }
 
+  /**
+   * @description Render component structure
+   * @param {JSX} Component structure
+   */
   return (
     <div className="book">
       <div className="book-top">
@@ -37,8 +55,13 @@ const Book = ({ book, onUpdateBookShelf }) => {
   )
 }
 
+/**
+ * Define property types
+ * @type {Object}
+ */
 Book.PropTypes = {
-  book: PropTypes.object.isRequired
+  book: PropTypes.object.isRequired,
+  onUpdateBookShelf: PropTypes.func
 }
 
 export default Book

@@ -3,7 +3,16 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Bookshelf from './Bookshelf'
 
+/**
+ * @description ListBooks stateless component
+ * @param {Array} books List of books to show on main page
+ * @param {function} onUpdateBookShelf Update book shelf
+ */
 const ListBooks = ({ books, onUpdateBookShelf }) => {
+    /**
+     * @description Books filtered by shelf
+     * @type {Array}
+     */
     const allBooks = [
       {
         books: books.filter(book => book.shelf === 'currentlyReading'),
@@ -19,6 +28,10 @@ const ListBooks = ({ books, onUpdateBookShelf }) => {
       }
     ]
 
+    /**
+     * @description Render component structure
+     * @param {JSX}
+     */
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -43,6 +56,10 @@ const ListBooks = ({ books, onUpdateBookShelf }) => {
     )
 }
 
+/**
+ * Define property types
+ * @type {Object}
+ */
 ListBooks.PropTypes = {
   books: PropTypes.array.isRequired,
   onUpdateBookShelf: PropTypes.func

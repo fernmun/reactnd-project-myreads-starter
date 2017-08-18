@@ -1,16 +1,37 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import { Route } from 'react-router-dom'
+import { debounce } from 'throttle-debounce'
 import SearchBooks from './SearchBooks'
 import ListBooks from './ListBooks'
 import './App.css'
 
+/**
+ * @description Container component to handle app workflow
+ */
 class BooksApp extends React.Component {
+  /**
+   * State object
+   * @type {Object}
+   */
   state = {
     books: [],
     foundBooks: []
   }
 
+  /**
+  * @description Add debounce function to limit ajax calls on search method
+  * @constructor
+  */
+  constructor() {
+    super()
+
+    this.SearchBook = debounce(this.searchBook, 200)
+  }
+
+  /**
+   * @description Get all books from BooksAPI to be listed
+   */
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       if (books && books.length) {
@@ -19,19 +40,31 @@ class BooksApp extends React.Component {
     })
   }
 
+  /**
+   * @description Clean foundBooks on state object
+   */
+  componentWillReceiveProps() {
+    this.setState({ foundBooks: [] })
+  }
+
+  /**
+   * @description Update book shelf on state object and on BooksAPI as well
+   * @param  {Object} book  Book object
+   * @param  {string} shelf Book shelf
+   */
   updateBookShelf(book, shelf) {
     BooksAPI.update(book, shelf).then(
       this.setState(state => {
         // Check if book updated is listed on the main page, if not get all books.
-        if (state.books.filter(bookItem => bookItem.id == book.id).length > 0) {
-          books: state.books.map(item =>
+        if (state.books.filter(bookItem => bookItem.id === book.id).length) {
+          state.books.map(item =>
             item.shelf = item.id === book.id ? shelf : item.shelf
           )
         }
         else {
           BooksAPI.getAll().then((books) => {
             if (books && books.length) {
-              this.setState({ books })
+              state.books = books
             }
           })
         }
@@ -39,16 +72,27 @@ class BooksApp extends React.Component {
     )
   }
 
+  /**
+   * @description Update foundBooks on state object either with all given books
+   * by BooksAPI or empty array if query is not defined
+   * @param  {string} query Key words
+   */
   searchBook(query) {
-    if (query !== 'undefined') {
+    if (query !== 'undefined' && query !== '') {
       BooksAPI.search(query).then(foundBooks => {
         if (foundBooks && foundBooks.length) {
           this.setState({ foundBooks })
         }
       })
+    } else {
+      this.setState({ foundBooks: [] })
     }
   }
 
+  /**
+   * @description Render component
+   * @returns {JSX} App wrapper with SearchBooks and ListBooks components
+   */
   render() {
     return (
       <div className="app">

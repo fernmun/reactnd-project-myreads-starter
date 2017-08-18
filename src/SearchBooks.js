@@ -3,11 +3,25 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Book from './Book'
 
+/**
+ * @description SearchBooks stateless component
+ * @param {Array} books List of books to show on the search page
+ * @param {function} onSearchBook Return books given a query
+ * @param {funcion} onUpdateBookShelf Update book shelf
+ */
 const SearchBooks = ({ books, onSearchBook, onUpdateBookShelf }) => {
+  /**
+   * @description Trigger onSearchBook function
+   * @param {Object} e Event object
+   */
   const handleChange = (e) => {
     onSearchBook(e.target.value)
   }
 
+  /**
+   * @description Render component structure
+   * @param {JSX}
+   */
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -33,6 +47,10 @@ const SearchBooks = ({ books, onSearchBook, onUpdateBookShelf }) => {
   )
 }
 
+/**
+ * Define property types
+ * @type {Object}
+ */
 SearchBooks.PropTypes = {
   books: PropTypes.array,
   onSearchBook: PropTypes.func,

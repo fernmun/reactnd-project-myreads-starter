@@ -1,7 +1,17 @@
 import React from 'react'
 import Book from './Book'
 
+/**
+ * @description Bookshelf stateless component
+ * @param {string} title Title component
+ * @param {Array} books List of books belong to shelf
+ * @param {function} onUpdateBookShelf Update book shelf
+ */
 const Bookshelf = ({ title, books, onUpdateBookShelf }) => {
+  /**
+   * @description Render component structure
+   * @param {JSX}
+   */
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{title}</h2>
