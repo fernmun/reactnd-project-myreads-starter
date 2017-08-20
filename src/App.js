@@ -70,6 +70,14 @@ class BooksApp extends React.Component {
     if (query !== 'undefined' && query !== '') {
       BooksAPI.search(query).then(foundBooks => {
         if (foundBooks && foundBooks.length) {
+          foundBooks = foundBooks.map((b) => {
+            this.state.books
+              .filter((book) => book.id === b.id)
+              .map((book) => b.shelf = book.shelf)
+
+            return b
+          })
+
           this.setState({ foundBooks })
         } else {
           this.setState({ foundBooks: [] })
